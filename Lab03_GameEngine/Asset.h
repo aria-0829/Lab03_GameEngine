@@ -2,14 +2,19 @@
 #ifndef _ASSET_H_
 #define _ASSET_H_
 
-class Asset
+#include "Object.h"
+
+class Asset : public Object
 {
+private:
+	friend class AssetManager;
+
 protected:
 	Asset();
 	~Asset();
 
 public:
-	virtual void Load();
+	void Load(json::JSON& _json);
 };
 
 #endif // !_ASSET_H_

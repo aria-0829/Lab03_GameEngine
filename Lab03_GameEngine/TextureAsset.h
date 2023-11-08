@@ -10,7 +10,7 @@ public:
 	TextureAsset();
 	~TextureAsset();
 
-	void Load();
+	void Load(json::JSON& _json);
 };
 #endif // !_TEXTURE_ASSET_H_
 
