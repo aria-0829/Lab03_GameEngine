@@ -5,6 +5,7 @@
 #include <list>
 #include <string>
 #include "IRenderable.h"
+#include "json.hpp"
 
 class IRenderable;
 
@@ -43,7 +44,7 @@ protected:
 	void Initialize();
 	void Destroy();
 	void Update();
-	void Load();
+	void Load(json::JSON& _json);
 	void Display();
 };
 

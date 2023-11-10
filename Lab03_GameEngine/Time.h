@@ -38,13 +38,13 @@ public:
 		return *instance;
 	}
 
-	/*inline void Destroy()
+	inline void Destroy()
 	{
 		if (instance != nullptr)
 		{
 			delete instance;
 		}
-	}*/
+	}
 
 	float DeltaTime() { return deltaTime.count(); }
 	float TotalTime() { return totalTime.count(); }

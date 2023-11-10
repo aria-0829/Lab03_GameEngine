@@ -2,12 +2,20 @@
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
 
+#include "Time.h"
+#include "AssetManager.h"
+#include "InputManager.h"
+#include "RenderSystem.h"
+#include "SceneManager.h"
+#include "json.hpp"
+#include <fstream>
+
 class Engine
 {
 private:
 	static Engine* instance;
 
-	void Load();
+	void Load(json::JSON& _json);
 
 	inline explicit Engine() = default;
 	inline ~Engine() = default;
