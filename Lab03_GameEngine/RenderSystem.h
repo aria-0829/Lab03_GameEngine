@@ -6,6 +6,8 @@
 #include <string>
 #include "IRenderable.h"
 #include "json.hpp"
+#include <fstream>
+#include "SDL.h"
 
 class IRenderable;
 
@@ -22,9 +24,11 @@ private:
 	inline RenderSystem& operator=(RenderSystem const&) = delete;
 
 	std::string name = "";
-	int width = 0;
-	int height = 0;
+	int width = 640;
+	int height = 640;
 	bool fullScreen = false;
+	SDL_Window* window = nullptr;
+	SDL_Renderer* renderer = nullptr;
 	std::list<IRenderable*> renderables;
 
 public:

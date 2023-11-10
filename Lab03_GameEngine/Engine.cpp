@@ -4,7 +4,7 @@ Engine* Engine::instance = nullptr;
 
 void Engine::Load(json::JSON& _json)
 {
-	//RenderSystem::Instance().Load();
+	RenderSystem::Instance().Load(_json);
 }
 
 void Engine::Initialize()

@@ -15,6 +15,10 @@ void AssetManager::Initialize()
 
 void AssetManager::Destroy()
 {
+	if (instance != nullptr)
+	{
+		delete instance;
+	}
 }
 
 void AssetManager::Update()

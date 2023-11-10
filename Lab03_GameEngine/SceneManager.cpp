@@ -38,6 +38,10 @@ void SceneManager::Initialize()
 
 void SceneManager::Destroy()
 {
+	if (instance != nullptr)
+	{
+		delete instance;
+	}
 }
 
 void SceneManager::Update()
