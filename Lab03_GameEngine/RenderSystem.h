@@ -41,9 +41,6 @@ public:
 		return *instance;
 	}
 
-	//void AddRenderable(IRenderable* _renderable);
-	//void RemoveRenderable(IRenderable* _renderable);
-
 protected:
 	void Initialize();
 	void Destroy();

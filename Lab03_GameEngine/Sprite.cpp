@@ -4,6 +4,10 @@ Sprite::Sprite()
 {
 }
 
+Sprite::~Sprite()
+{
+}
+
 void Sprite::Load(json::JSON& _json)
 {
 }

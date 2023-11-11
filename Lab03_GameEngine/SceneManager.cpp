@@ -29,28 +29,60 @@ Entity* SceneManager::GetEntity()
 
 void SceneManager::RemoveEntity(Entity* _entity)
 {
+	for (const auto& scene : scenes)
+	{
+		scene->RemoveEntity(_entity);
+	}
 }
 
 void SceneManager::SetActiveScene(int _id)
 {
+	for (const auto& scene : scenes)
+	{
+		if (scene->GetId() == _id)
+		{
+			activeScene = scene;
+			return;
+		}
+	}
 }
 
 Scene* SceneManager::GetActiveScene()
 {
-	return nullptr;
+	return activeScene;
 }
 
-Entity* SceneManager::FindEntity(int _id)
+Entity* SceneManager::FindEntityById(int _id)
 {
+	for (const auto& scene : scenes)
+	{
+		Entity* entity = scene->FindEntityById(_id);
+		if (entity != nullptr)
+		{
+			return entity;
+		}
+	}
+
 	return nullptr;
 }
 
 void SceneManager::Initialize()
 {
+	for (auto& scene : scenes)
+	{
+		scene->Initialize();
+	}
 }
 
 void SceneManager::Destroy()
 {
+	for (auto& scene : scenes)
+	{
+		scene->Destroy();
+		delete scene;
+	}
+	scenes.clear();
+
 	if (instance != nullptr)
 	{
 		delete instance;
@@ -59,4 +91,8 @@ void SceneManager::Destroy()
 
 void SceneManager::Update()
 {
+	for (auto& scene : scenes)
+	{
+		scene->Update();
+	}
 }

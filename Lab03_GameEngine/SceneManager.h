@@ -40,7 +40,7 @@ public:
 	void RemoveEntity(Entity* _entity);
 	void SetActiveScene(int _id);
 	Scene* GetActiveScene();
-	Entity* FindEntity(int _id);
+	Entity* FindEntityById(int _id);
 
 protected:
 	void Initialize();

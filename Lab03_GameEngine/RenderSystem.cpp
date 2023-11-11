@@ -68,12 +68,13 @@ void RenderSystem::Load()
 
 		if (documentData.hasKey("width"))
 		{
-			if (typeid(documentData["width"].ToInt()) == typeid(int))
+			try
 			{
+				width = documentData["width"].ToInt();
 			}
-			else
+			catch (const std::exception& ex)
 			{
-				std::cerr << "Error: 'width' is not an int type." << std::endl;
+				std::cerr << "Error: Failed to convert 'width' to an int. " << ex.what() << std::endl;
 			}
 		}
 		else

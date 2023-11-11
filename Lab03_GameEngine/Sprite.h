@@ -9,7 +9,7 @@ class Sprite : public Component, IRenderable
 {
 public:
 	Sprite();
-	//~Sprite();
+	~Sprite();
 
 	void Load(json::JSON& _json);
 

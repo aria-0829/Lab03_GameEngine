@@ -28,6 +28,7 @@ public:
 	Entity* CreateEntity();
 	void RemoveEntity(Entity* _entity);
 	Entity* FindEntityById(int _id);
+	int GetId() { return id; }
 };
 
 #endif // !_SCENE_H_

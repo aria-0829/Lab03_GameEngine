@@ -5,7 +5,6 @@
 
 #include "Object.h"
 #include <string>
-class Entity;
 
 class Component : public Object
 {

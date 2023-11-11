@@ -13,10 +13,21 @@ void AssetManager::RemoveAsset(Asset* _asset)
 
 void AssetManager::Initialize()
 {
+	for (auto& asset : assets)
+	{
+		asset->Initialize();
+	}
 }
 
 void AssetManager::Destroy()
 {
+	for (auto& asset : assets)
+	{
+		asset->Destroy();
+		delete asset;
+	}
+	assets.clear();
+
 	if (instance != nullptr)
 	{
 		delete instance;
