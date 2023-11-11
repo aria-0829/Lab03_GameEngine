@@ -1,9 +1,10 @@
 #include "RenderSystem.h"
-
+#include "Engine.h"
 RenderSystem* RenderSystem::instance = nullptr;
 
 void RenderSystem::Initialize()
 {
+	Load();
 	window = SDL_CreateWindow("SDL Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
@@ -29,36 +30,100 @@ void RenderSystem::Update()
 	{
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 		{
-			Destroy();
+			Engine::Instance().SetIsRunning(false);
 		}
 	}
 
 	SDL_RenderPresent(renderer);
 }
 
-void RenderSystem::Load(json::JSON& _json)
+void RenderSystem::Load()
 {
-	if (_json.hasKey("name"))
-	{
-		name = _json["name"].ToString();
+	std::ifstream inputStream("RenderSystem.json");
+	if (!inputStream.is_open()) {
+		std::cerr << "Error: Unable to open RenderSystem.json" << std::endl;
+		return;
 	}
 
-	if (_json.hasKey("width"))
-	{
-		width = _json["width"].ToInt();
-	}
+	std::string str((std::istreambuf_iterator<char>(inputStream)), std::istreambuf_iterator<char>());
+	json::JSON documentData = json::JSON::Load(str);
 
-	if (_json.hasKey("height"))
+	try
 	{
-		height = _json["height"].ToInt();
-	}
+		if (documentData.hasKey("name"))
+		{
+			if (typeid(documentData["name"].ToString()) == typeid(std::string))
+			{
+				name = documentData["name"].ToString();
+			}
+			else
+			{
+				std::cerr << "Error: 'name' is not a string type." << std::endl;
+			}
+		}
+		else
+		{
+			std::cerr << "Error: 'name' key not found in JSON data." << std::endl;
+		}
 
-	if (_json.hasKey("fullscreen"))
+		if (documentData.hasKey("width"))
+		{
+			if (typeid(documentData["width"].ToInt()) == typeid(int))
+			{
+			}
+			else
+			{
+				std::cerr << "Error: 'width' is not an int type." << std::endl;
+			}
+		}
+		else
+		{
+			std::cerr << "Error: 'width' key not found in JSON data." << std::endl;
+		}
+
+		if (documentData.hasKey("height"))
+		{
+			try
+			{
+				height = documentData["height"].ToInt();
+			}
+			catch (const std::exception& ex)
+			{
+				std::cerr << "Error: Failed to convert 'height' to an int. " << ex.what() << std::endl;
+			}
+		}
+		else
+		{
+			std::cerr << "Error: 'height' key not found in JSON data." << std::endl;
+		}
+
+		if (documentData.hasKey("fullscreen"))
+		{
+			if (typeid(documentData["fullscreen"].ToBool()) == typeid(bool))
+			{
+				fullScreen = documentData["fullscreen"].ToBool();
+			}
+			else
+			{
+				std::cerr << "Error: 'fullscreen' is not a bool type." << std::endl;
+			}
+		}
+		else
+		{
+			std::cerr << "Error: 'fullscreen' key not found in JSON data." << std::endl;
+		}
+	}
+	catch(std::exception& ex)
 	{
-		fullScreen = _json["fullscreen"].ToBool();
+		std::cerr << "Error: " << ex.what() << std::endl;
+		throw;
 	}
 }
 
 void RenderSystem::Display()
 {
+	for (auto renderable : renderables)
+	{
+		renderable->Render();
+	}
 }

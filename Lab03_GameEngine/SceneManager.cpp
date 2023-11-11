@@ -3,6 +3,19 @@ SceneManager* SceneManager::instance = nullptr;
 
 void SceneManager::AddScene(std::string _fileName)
 {
+	std::ifstream inputStream("_fileName");
+	if (!inputStream.is_open()) {
+		std::cerr << "Error: Unable to open: " << _fileName << std::endl;
+		return;
+	}
+
+	std::string str((std::istreambuf_iterator<char>(inputStream)), std::istreambuf_iterator<char>());
+	json::JSON sceneData = json::JSON::Load(str);
+
+	Scene* scene = new Scene();
+	scenes.push_back(scene);
+	scene->Load(sceneData);
+	scene->Initialize();
 }
 
 void SceneManager::RemoveScene(std::string _fileName)

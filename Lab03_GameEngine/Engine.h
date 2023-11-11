@@ -15,7 +15,8 @@ class Engine
 private:
 	static Engine* instance;
 
-	void Load(json::JSON& _json);
+	bool isRunning = true;
+	void Load();
 
 	inline explicit Engine() = default;
 	inline ~Engine() = default;
@@ -35,5 +36,6 @@ public:
 	void Initialize();
 	void Destroy();
 	void GameLoop();
+	void SetIsRunning(bool _isRunning) { isRunning = _isRunning; }
 };
 #endif // !_ENGINE_H_

@@ -48,7 +48,7 @@ protected:
 	void Initialize();
 	void Destroy();
 	void Update();
-	void Load(json::JSON& _json);
+	void Load();
 	void Display();
 };
 

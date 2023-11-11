@@ -6,6 +6,8 @@
 #include "Entity.h"
 #include <list>
 #include <string>
+#include "json.hpp"
+#include <fstream>
 
 class SceneManager
 {
@@ -20,7 +22,7 @@ private:
 	inline SceneManager& operator=(SceneManager const&) = delete;
 
 	std::list<Scene*> scenes;
-	Scene* activeScene;
+	Scene* activeScene = nullptr;
 
 public:
 	static SceneManager& Instance()

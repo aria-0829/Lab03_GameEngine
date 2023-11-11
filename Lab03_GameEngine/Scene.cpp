@@ -31,6 +31,7 @@ Entity* Scene::CreateEntity()
 
 void Scene::RemoveEntity(Entity* _entity)
 {
+	entities.remove(_entity);
 }
 
 Entity* Scene::FindEntityById(int _id)
